@@ -1,0 +1,26 @@
+[
+  {
+    "case": "valid_credentials",
+    "email": "valid.user@example.com",
+    "password": "ValidPass123",
+    "expect_success": true
+  },
+  {
+    "case": "wrong_password",
+    "email": "valid.user@example.com",
+    "password": "WrongPass999",
+    "expect_success": false
+  },
+  {
+    "case": "unregistered_email",
+    "email": "nobody@example.com",
+    "password": "AnyPass123",
+    "expect_success": false
+  },
+  {
+    "case": "empty_password",
+    "email": "valid.user@example.com",
+    "password": "",
+    "expect_success": false
+  }
+]

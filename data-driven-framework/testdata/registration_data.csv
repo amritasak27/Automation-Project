@@ -1,0 +1,4 @@
+case,name,email,expect_form_visible
+new_unique_email,John Smith,john.smith.qa+1@example.com,true
+already_registered_email,Existing User,valid.user@example.com,false
+name_with_special_chars,Jane O'Connor,jane.oconnor@example.com,true

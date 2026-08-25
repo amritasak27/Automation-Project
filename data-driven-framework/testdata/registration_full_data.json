@@ -1,0 +1,95 @@
+[
+  {
+    "case": "valid_registration",
+    "email": "GENERATE",
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "password": "ValidPass123",
+    "zipcode": "12345",
+    "mobile_number": "9876543210",
+    "expect_account_created": true,
+    "known_site_gap": false
+  },
+  {
+    "case": "duplicate_email",
+    "email": "valid.user@example.com",
+    "first_name": "Existing",
+    "last_name": "User",
+    "password": "ValidPass123",
+    "zipcode": "12345",
+    "mobile_number": "9876543210",
+    "expect_email_exists_error": true
+  },
+  {
+    "case": "phone_too_short",
+    "email": "GENERATE",
+    "first_name": "Sam",
+    "last_name": "Short",
+    "password": "ValidPass123",
+    "zipcode": "12345",
+    "mobile_number": "12345",
+    "expect_account_created": true,
+    "known_site_gap": true,
+    "gap_reason": "Site accepts a 5-digit mobile number; business rule requires exactly 10 digits."
+  },
+  {
+    "case": "phone_too_long",
+    "email": "GENERATE",
+    "first_name": "Lon",
+    "last_name": "Number",
+    "password": "ValidPass123",
+    "zipcode": "12345",
+    "mobile_number": "987654321099",
+    "expect_account_created": true,
+    "known_site_gap": true,
+    "gap_reason": "Site accepts a 12-digit mobile number; business rule requires exactly 10 digits."
+  },
+  {
+    "case": "phone_with_letters",
+    "email": "GENERATE",
+    "first_name": "Al",
+    "last_name": "Pha",
+    "password": "ValidPass123",
+    "zipcode": "12345",
+    "mobile_number": "98A7654B10",
+    "expect_account_created": true,
+    "known_site_gap": true,
+    "gap_reason": "Site accepts non-numeric characters in mobile number field; business rule requires digits only."
+  },
+  {
+    "case": "zip_too_short",
+    "email": "GENERATE",
+    "first_name": "Zip",
+    "last_name": "Short",
+    "password": "ValidPass123",
+    "zipcode": "123",
+    "mobile_number": "9876543210",
+    "expect_account_created": true,
+    "known_site_gap": true,
+    "gap_reason": "Site accepts a 3-digit zipcode; business rule requires exactly 5 digits."
+  },
+  {
+    "case": "zip_too_long",
+    "email": "GENERATE",
+    "first_name": "Zip",
+    "last_name": "Long",
+    "password": "ValidPass123",
+    "zipcode": "123456789",
+    "mobile_number": "9876543210",
+    "expect_account_created": true,
+    "known_site_gap": true,
+    "gap_reason": "Site accepts a 9-digit zipcode; business rule requires exactly 5 digits."
+  },
+  {
+    "case": "zip_with_letters",
+    "email": "GENERATE",
+    "first_name": "Zip",
+    "last_name": "Alpha",
+    "password": "ValidPass123",
+    "zipcode": "AB123",
+    "mobile_number": "9876543210",
+    "expect_account_created": true,
+    "known_site_gap": true,
+    "gap_reason": "Site accepts non-numeric characters in zipcode field; business rule requires digits only."
+  }
+]
