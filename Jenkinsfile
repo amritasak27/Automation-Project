@@ -20,6 +20,7 @@ pipeline {
                         call venv\\Scripts\\activate
                         pip install --upgrade pip
                         pip install -r requirements.txt
+                        playwright install chromium
                         pytest --junitxml=reports\\report.xml
                     '''
                 }
