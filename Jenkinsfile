@@ -14,39 +14,28 @@ pipeline {
 
         stage('BDD Framework - Setup & Test') {
             steps {
-                dir('bdd-framework') {
-                    bat '''
-                        python -m venv venv
-                        call venv\\Scripts\\activate
-                        pip install --upgrade pip
-                        pip install -r requirements.txt
-                        pytest --junitxml=report.xml --alluredir=allure-results
-                    '''
-                }
-            }
+                stage('BDD Framework - Setup & Test') {
+    steps {
+        dir('bdd-framework') {
+            bat '''
+                py -3.11 -m venv venv
+                call venv\\Scripts\\activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                pytest --junitxml=reports\\report.xml
+            '''
         }
-
-        stage('Data-Driven Framework - Setup & Test') {
-            steps {
-                dir('data-driven-framework') {
-                    bat '''
-                        python -m venv venv
-                        call venv\\Scripts\\activate
-                        pip install --upgrade pip
-                        pip install -r requirements.txt
-                        pytest --junitxml=report.xml --alluredir=allure-results
-                    '''
-                }
+    }
+}
             }
         }
     }
 
     post {
         always {
-            junit 'bdd-framework/report.xml, data-driven-framework/report.xml'
+            junit 'bdd-framework/reports/report.xml'
             allure includeProperties: false, jdk: '', results: [
-                [path: 'bdd-framework/allure-results'],
-                [path: 'data-driven-framework/allure-results']
+                [path: 'bdd-framework/reports/allure-results']
             ]
         }
         failure {
