@@ -14,19 +14,15 @@ pipeline {
 
         stage('BDD Framework - Setup & Test') {
             steps {
-                stage('BDD Framework - Setup & Test') {
-    steps {
-        dir('bdd-framework') {
-            bat '''
-                py -3.11 -m venv venv
-                call venv\\Scripts\\activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
-                pytest --junitxml=reports\\report.xml
-            '''
-        }
-    }
-}
+                dir('bdd-framework') {
+                    bat '''
+                        py -3.11 -m venv venv
+                        call venv\\Scripts\\activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        pytest --junitxml=reports\\report.xml
+                    '''
+                }
             }
         }
     }
