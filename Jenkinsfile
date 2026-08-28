@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        allure 'allure'   // must match the name you set in Global Tool Configuration
+        allure 'allure'
     }
 
     stages {
@@ -12,31 +12,42 @@ pipeline {
             }
         }
 
-        stage('Setup Python Environment') {
+        stage('BDD Framework - Setup & Test') {
             steps {
-                bat '''
-                    python -m venv venv
-                    call venv\\Scripts\\activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                dir('bdd-framework') {
+                    bat '''
+                        python -m venv venv
+                        call venv\\Scripts\\activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        pytest --junitxml=report.xml --alluredir=allure-results
+                    '''
+                }
             }
         }
 
-        stage('Run Tests') {
+        stage('Data-Driven Framework - Setup & Test') {
             steps {
-                bat '''
-                    call venv\\Scripts\\activate
-                    pytest --junitxml=report.xml --alluredir=allure-results
-                '''
+                dir('data-driven-framework') {
+                    bat '''
+                        python -m venv venv
+                        call venv\\Scripts\\activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        pytest --junitxml=report.xml --alluredir=allure-results
+                    '''
+                }
             }
         }
     }
 
     post {
         always {
-            junit 'report.xml'
-            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+            junit 'bdd-framework/report.xml, data-driven-framework/report.xml'
+            allure includeProperties: false, jdk: '', results: [
+                [path: 'bdd-framework/allure-results'],
+                [path: 'data-driven-framework/allure-results']
+            ]
         }
         failure {
             echo 'Tests failed.'
