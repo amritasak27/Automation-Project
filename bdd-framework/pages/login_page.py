@@ -17,4 +17,4 @@ class LoginPage(BasePage):
         return self.is_visible(self.ERROR_MESSAGE)
 
     def is_logged_in(self) -> bool:
-        return self.is_visible(self.LOGGED_IN_INDICATOR)
+        return self.wait_for_visible(self.LOGGED_IN_INDICATOR)

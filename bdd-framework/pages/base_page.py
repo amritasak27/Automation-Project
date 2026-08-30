@@ -2,9 +2,6 @@ from playwright.sync_api import Page
 
 
 class BasePage:
-    """Common actions shared by every page object (mirrors data-driven-framework's
-    base_page.py - same pattern, kept independent per framework)."""
-
     def __init__(self, page: Page):
         self.page = page
 
@@ -15,9 +12,6 @@ class BasePage:
         self.page.locator(locator).click()
 
     def click_first(self, locator: str):
-        """Use when a locator may legitimately match multiple elements
-        (e.g. duplicate product cards, hover overlays) and clicking the
-        first match is the correct, deterministic behavior."""
         self.page.locator(locator).first.click()
 
     def fill(self, locator: str, text: str):
@@ -25,3 +19,13 @@ class BasePage:
 
     def is_visible(self, locator: str) -> bool:
         return self.page.locator(locator).is_visible()
+
+    def wait_for_visible(self, locator: str, timeout: int = 10000) -> bool:
+        """Waits up to `timeout` ms for the element to become visible,
+        instead of checking instantly. Use this after any action that
+        triggers navigation or async UI updates (login, form submit, etc.)."""
+        try:
+            self.page.locator(locator).wait_for(state="visible", timeout=timeout)
+            return True
+        except Exception:
+            return False
