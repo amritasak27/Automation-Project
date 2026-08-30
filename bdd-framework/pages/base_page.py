@@ -14,6 +14,12 @@ class BasePage:
     def click(self, locator: str):
         self.page.locator(locator).click()
 
+    def click_first(self, locator: str):
+        """Use when a locator may legitimately match multiple elements
+        (e.g. duplicate product cards, hover overlays) and clicking the
+        first match is the correct, deterministic behavior."""
+        self.page.locator(locator).first.click()
+
     def fill(self, locator: str, text: str):
         self.page.locator(locator).fill(text)
 
