@@ -1,8 +1,8 @@
 [
   {
     "case": "valid_credentials",
-    "email": "valid.user@example.com",
-    "password": "ValidPass123",
+    "email": "pritamstar@123",
+    "password": "Pritam@123",
     "expect_success": true
   },
   {
